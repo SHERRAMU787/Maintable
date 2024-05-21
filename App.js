@@ -2,44 +2,22 @@ import * as React from 'react';
 import { View, StyleSheet, Button } from 'react-native';
 import { Video, ResizeMode } from 'expo-av';
 import { Typography } from '@mui/material';
-import { Text} from 'react-native';
+import { Text,Image} from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
+import LineGraph from './Fetchdata';
+const App = () => {
+  const Stack = createNativeStackNavigator();
 
-export default function App() {
-  const video = React.useRef(null);
-  const [status, setStatus] = React.useState({});
   return (
-    <View 
-    style={{flex: 1,
-      justifyContent: 'center',
-      backgroundColor: '#ecf0f1',}}><View style={{alignItems:'center'}}>
-        <Text style={{fontWeight:'bold',alignItems:'center'}}>Demovideoplayer</Text></View>
-      <Video
-        ref={video}
-        style={{ alignSelf: 'center',
-        width: 320,
-        height: 200,}}
-        source={{
-          uri: 'https://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
-        }}
-        useNativeControls
-        resizeMode={ResizeMode.CONTAIN}
-        isLooping
-        onPlaybackStatusUpdate={status => setStatus(() => status)}
-      />
-      <View
-       style={{ flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop:15}}>
-        <Button
-          title={status.isPlaying ? 'Pause' : 'Play'}
-          onPress={() =>
-            status.isPlaying ? video.current.pauseAsync() : video.current.playAsync()
-          }
-        />
-      </View>
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName='Maintable'>
+        <Stack.Screen name="Maintable" component={LineGraph} />
+       
+      </Stack.Navigator>
+    </NavigationContainer>
   );
-}
+};
 
+export default App;
